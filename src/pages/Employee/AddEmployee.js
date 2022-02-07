@@ -4,7 +4,6 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -12,17 +11,20 @@ import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Grid from "@mui/material/Grid";
-import { Alert } from "@mui/material";
+
+import useAxios from "../../authenticaton/useAxios";
 
 function AddEmployee(props) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
+  let api = useAxios();
+
   const handleClose = () => {
     props.setAddEmp(false);
   };
 
-  const getData = async (e) => {
+  let getData = async (e) => {
     e.preventDefault();
     const firstName = e.target.firstName.value;
     const middleName = e.target.middleName.value;
@@ -30,27 +32,26 @@ function AddEmployee(props) {
     const email = e.target.email.value;
     const contact = e.target.contact.value;
     const address = e.target.address.value;
+    const salary = e.target.salary.value;
 
-    alert(
-      "firstName: " +
-        firstName +
-        " middleName: " +
-        middleName +
-        " lastName: " +
-        lastName +
-        " email: " +
-        email +
-        " contact: " +
-        contact +
-        " address: " +
-        address
-    );
+    let postData = {
+      name: firstName + " " + middleName + " " + lastName,
+      email: email,
+      contact: contact,
+      address: address,
+      salary: salary,
+    };
+
+    let response = await api.post("/api/employees/add/", postData);
+    if (response.status === 200) {
+      alert("Employee Added Successfully");
+      window.location.reload();
+    }
   };
 
   return (
     <Dialog
       fullScreen={fullScreen}
-      // fullWidth={true}
       maxWidth="lg"
       open={props.addEmp}
       onClose={handleClose}
@@ -155,6 +156,26 @@ function AddEmployee(props) {
                 fullWidth={true}
                 id="address"
                 label="Address"
+                multiline
+                rows={2}
+                variant="outlined"
+                color="secondary"
+              />
+            </Grid>
+          </Grid>
+
+          <Grid
+            container
+            alignItems="flex-start"
+            spacing={2}
+            marginTop={2}
+            marginBottom={2}
+          >
+            <Grid item xs={12}>
+              <TextField
+                fullWidth={true}
+                id="salary"
+                label="Salary"
                 multiline
                 rows={2}
                 variant="outlined"

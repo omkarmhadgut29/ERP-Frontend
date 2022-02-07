@@ -16,22 +16,16 @@ const Employee = () => {
     <Box>
       <Box display="flex" justifyContent="space-between">
         <Typography variant="h5">Employee </Typography>
-        {/* <Typography> */}
-        {/* <Link to="/add/employee" style={{ textDecoration: "none" }}> */}
         <Button
           variant="contained"
           color="success"
           startIcon={<AddIcon />}
           onClick={() => {
-            console.log("add employee called ");
             setAddEmp(true);
-            // history("/add/employee");
           }}
         >
           Add Employee
         </Button>
-        {/* </Link> */}
-        {/* </Typography> */}
       </Box>
       <br />
       <EmpTable />
