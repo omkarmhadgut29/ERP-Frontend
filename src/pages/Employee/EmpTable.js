@@ -36,7 +36,7 @@ export default function StickyHeadTable() {
   }, []);
 
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(8);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -53,7 +53,7 @@ export default function StickyHeadTable() {
         <span>loading</span>
       ) : (
         <Paper sx={{ width: "100%", overflow: "auto" }}>
-          <TableContainer sx={{ maxHeight: 440 }}>
+          <TableContainer sx={{ maxHeight: 510 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
@@ -72,43 +72,41 @@ export default function StickyHeadTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.id}
-                        sx={{ "&:hover": { background: "#f2ffff" } }}
-                      >
-                        {columnHeaders.map((column) => {
-                          let value;
-                          if (parseInt(row[column])) {
-                            value = parseInt(row[column]);
-                          } else {
-                            value = String(row[column]);
-                          }
-                          return (
-                            <TableCell key={column} align="right">
-                              <Typography
-                                sx={{
-                                  fontSize: "15px",
-                                }}
-                              >
-                                {value}
-                              </Typography>
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
+                {rows.slice(page * 8, page * 8 + 8).map((row) => {
+                  return (
+                    <TableRow
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.id}
+                      sx={{ "&:hover": { background: "#f2ffff" } }}
+                    >
+                      {columnHeaders.map((column) => {
+                        let value;
+                        if (parseInt(row[column])) {
+                          value = parseInt(row[column]);
+                        } else {
+                          value = String(row[column]);
+                        }
+                        return (
+                          <TableCell key={column} align="right">
+                            <Typography
+                              sx={{
+                                fontSize: "15px",
+                              }}
+                            >
+                              {value}
+                            </Typography>
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
+            rowsPerPageOptions={[8]}
             component="div"
             count={rows.length}
             rowsPerPage={rowsPerPage}

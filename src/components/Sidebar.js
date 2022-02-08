@@ -26,7 +26,6 @@ import Dashboard from "../pages/Dashboard";
 import Customer from "../pages/Customer";
 import Employee from "../pages/Employee";
 import Leads from "../pages/Leads";
-import AddEmployee from "../pages/Employee/AddEmployee";
 
 const drawerWidth = 240;
 
@@ -112,7 +111,11 @@ export default function MiniDrawer({ classes }) {
        */}
       <Appbar open={open} setOpen={setOpen} />
 
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        open={open}
+        // sx={{ bgcolor: "red !important" }}
+      >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (

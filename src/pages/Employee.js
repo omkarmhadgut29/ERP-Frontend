@@ -1,5 +1,4 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -10,7 +9,6 @@ import EmpTable from "./Employee/EmpTable";
 import AddEmployee from "./Employee/AddEmployee";
 
 const Employee = () => {
-  let history = useNavigate();
   const [addEmp, setAddEmp] = React.useState(false);
   return (
     <Box>
