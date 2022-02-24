@@ -1,11 +1,34 @@
 import React from "react";
 
-const Leads = () => {
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+
+import LeadTable from "./Lead/LeadTable";
+import AddLead from "./Lead/AddLead";
+
+
+export default function  Leads() {
+  const [addLead, setAddLead] = React.useState(false);
   return (
-    <div>
-      <h1>Leads</h1>
-    </div>
+    <Box>
+      <Box display="flex" justifyContent="space-between">
+        <Typography variant="h5">Leads </Typography>
+        <Button
+          variant="contained"
+          color="success"
+          startIcon={<AddIcon />}
+          onClick={() => {
+            setAddLead(true);
+          }}
+        >
+          Add Lead
+        </Button>
+      </Box>
+      <br />
+      <LeadTable />
+      {addLead ? <AddLead addLead={addLead} setAddLead={setAddLead} /> : null}
+    </Box>
   );
 };
-
-export default Leads;
