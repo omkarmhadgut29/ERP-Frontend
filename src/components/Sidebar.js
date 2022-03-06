@@ -104,7 +104,6 @@ export default function MiniDrawer({ classes }) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      {/* <div> */}
       <CssBaseline />
       {/* /**
        * * Appbar
@@ -144,7 +143,6 @@ export default function MiniDrawer({ classes }) {
           <Route element={<Customer />} path="/Customers" />
           <Route element={<Employee />} path="/Employees" />
           <Route element={<Leads />} path="/Leads" />
-          {/* <Route element={<AddEmployee />} path="/add/employee" /> */}
         </Routes>
       </Box>
     </Box>

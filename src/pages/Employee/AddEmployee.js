@@ -42,7 +42,7 @@ function AddEmployee(props) {
       salary: salary,
     };
 
-    let response = await api.post("/api/employees/add/", postData);
+    let response = await api.post("/api/employee/add/", postData);
     if (response.status === 200) {
       alert("Employee Added Successfully");
       window.location.reload();
