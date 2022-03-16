@@ -13,7 +13,9 @@ const Employee = () => {
   return (
     <Box>
       <Box display="flex" justifyContent="space-between">
-        <Typography variant="h5">Employee </Typography>
+        <Typography variant="h5" component={"div"}>
+          Employee{" "}
+        </Typography>
         <Button
           variant="contained"
           color="success"

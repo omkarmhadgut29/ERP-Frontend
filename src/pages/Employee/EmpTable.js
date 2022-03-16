@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import Checkbox from "@mui/material/Checkbox";
 
 import useAxios from "../../authenticaton/useAxios";
+import Actions from "./Actions";
 
 export default function StickyHeadTable() {
   const [columnHeaders, setColumnHeaders] = useState([]);
@@ -27,16 +28,10 @@ export default function StickyHeadTable() {
       let column = [];
       column.push("no.");
       column = column.concat(Object.keys(response.data[0]));
+      column.push("action");
       let newColumn = column.filter(function (value, index, arr) {
         return value !== "id" && value !== "image";
       });
-
-      // for (let i = 0; i < response.data.length; i++) {
-      //   count.push(i + 1);
-      // }
-
-      // console.log(response.data[0::]));
-
       setColumnHeaders(newColumn);
       setRows(response.data);
     }
@@ -77,12 +72,6 @@ export default function StickyHeadTable() {
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
-                  {/* <Checkbox
-                    // checked={checked}
-                    // onChange={handleChange}
-                    inputProps={{ "aria-label": "controlled" }}
-                    disabled
-                  /> */}
                   {columnHeaders.map((column) => (
                     <TableCell key={column} align="right">
                       <Typography
@@ -90,6 +79,7 @@ export default function StickyHeadTable() {
                           fontWeight: "bold",
                           fontSize: "20px",
                         }}
+                        component={"div"}
                       >
                         {column.charAt(0).toUpperCase() + column.slice(1)}
                       </Typography>
@@ -106,17 +96,13 @@ export default function StickyHeadTable() {
                       key={row.id}
                       sx={{ "&:hover": { background: "#f2ffff" } }}
                     >
-                      {/* <Checkbox
-                          // checked={checked}
-                          // onChange={handleChange}
-                          inputProps={{ "aria-label": "controlled" }}
-                        /> */}
                       {columnHeaders.map((column) => {
                         let value;
                         if (column === "no.") {
                           value = count + 1;
                           count++;
-                          // setIndexValue(count);
+                        } else if (column === "action") {
+                          value = <Actions data={row} />;
                         } else {
                           value = row[column];
                         }
@@ -130,6 +116,7 @@ export default function StickyHeadTable() {
                             }}
                           >
                             <Typography
+                              component={"div"}
                               sx={{
                                 fontSize: "15px",
                               }}

@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import useAxios from "../../authenticaton/useAxios";
 
 export default function CustomerTable() {
-    const [columnHeaders, setColumnHeaders] = useState([]);
+  const [columnHeaders, setColumnHeaders] = useState([]);
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -60,6 +60,7 @@ export default function CustomerTable() {
                   {columnHeaders.map((column) => (
                     <TableCell key={column} align="right">
                       <Typography
+                        component={"div"}
                         sx={{
                           fontWeight: "bold",
                           fontSize: "20px",
@@ -90,6 +91,7 @@ export default function CustomerTable() {
                         return (
                           <TableCell key={column} align="right">
                             <Typography
+                              component={"div"}
                               sx={{
                                 fontSize: "15px",
                               }}
@@ -117,5 +119,5 @@ export default function CustomerTable() {
         </Paper>
       )}
     </div>
-  )
+  );
 }

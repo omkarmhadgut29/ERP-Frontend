@@ -8,14 +8,14 @@ import AddIcon from "@mui/icons-material/Add";
 import CustomerTable from "./Customer/CustomerTable";
 import AddCustomer from "./Customer/AddCustomer";
 
-
-
 const Customer = () => {
   const [addCustomer, setAddCustomer] = React.useState(false);
   return (
     <Box>
       <Box display="flex" justifyContent="space-between">
-        <Typography variant="h5">Customer </Typography>
+        <Typography variant="h5" component={"div"}>
+          Customer{" "}
+        </Typography>
         <Button
           variant="contained"
           color="success"
@@ -29,7 +29,12 @@ const Customer = () => {
       </Box>
       <br />
       <CustomerTable />
-      {addCustomer ? <AddCustomer addCustomer={addCustomer} setAddCustomer={setAddCustomer} /> : null}
+      {addCustomer ? (
+        <AddCustomer
+          addCustomer={addCustomer}
+          setAddCustomer={setAddCustomer}
+        />
+      ) : null}
     </Box>
   );
 };

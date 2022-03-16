@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import useAxios from "../../authenticaton/useAxios";
 
 function LeadTable() {
-    const [columnHeaders, setColumnHeaders] = useState([]);
+  const [columnHeaders, setColumnHeaders] = useState([]);
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -60,6 +60,7 @@ function LeadTable() {
                   {columnHeaders.map((column) => (
                     <TableCell key={column} align="right">
                       <Typography
+                        component={"div"}
                         sx={{
                           fontWeight: "bold",
                           fontSize: "20px",
@@ -90,6 +91,7 @@ function LeadTable() {
                         return (
                           <TableCell key={column} align="right">
                             <Typography
+                              component={"div"}
                               sx={{
                                 fontSize: "15px",
                               }}
@@ -117,7 +119,7 @@ function LeadTable() {
         </Paper>
       )}
     </div>
-  )
+  );
 }
 
-export default LeadTable
+export default LeadTable;

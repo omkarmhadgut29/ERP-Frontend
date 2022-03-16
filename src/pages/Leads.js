@@ -8,13 +8,14 @@ import AddIcon from "@mui/icons-material/Add";
 import LeadTable from "./Lead/LeadTable";
 import AddLead from "./Lead/AddLead";
 
-
-export default function  Leads() {
+export default function Leads() {
   const [addLead, setAddLead] = React.useState(false);
   return (
     <Box>
       <Box display="flex" justifyContent="space-between">
-        <Typography variant="h5">Leads </Typography>
+        <Typography variant="h5" component={"div"}>
+          Leads{" "}
+        </Typography>
         <Button
           variant="contained"
           color="success"
@@ -31,4 +32,4 @@ export default function  Leads() {
       {addLead ? <AddLead addLead={addLead} setAddLead={setAddLead} /> : null}
     </Box>
   );
-};
+}

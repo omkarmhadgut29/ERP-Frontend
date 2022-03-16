@@ -46,7 +46,7 @@ export default function Appbar(props) {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
+        <Typography variant="h6" noWrap component={"div"}>
           Employee Relationship Management
         </Typography>
       </Toolbar>
