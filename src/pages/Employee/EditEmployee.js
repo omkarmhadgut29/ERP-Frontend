@@ -14,37 +14,29 @@ import Grid from "@mui/material/Grid";
 
 import useAxios from "../../authenticaton/useAxios";
 
-function EditEmployee() {
+function EditEmployee(props) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   let api = useAxios();
 
   const handleClose = () => {
-    props.setAddEmp(false);
+    props.setOpen(false);
   };
 
-  let getData = async (e) => {
-    e.preventDefault();
-    const firstName = e.target.firstName.value;
-    const middleName = e.target.middleName.value;
-    const lastName = e.target.lastName.value;
-    const email = e.target.email.value;
-    const contact = e.target.contact.value;
-    const address = e.target.address.value;
-    const salary = e.target.salary.value;
+  let updateData = async (e) => {
 
-    let postData = {
-      name: firstName + " " + middleName + " " + lastName,
-      email: email,
-      contact: contact,
-      address: address,
-      salary: salary,
-    };
+    const postData = {
+      id: props.data.id,
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      contact: document.getElementById("contact").value,
+      address: document.getElementById("address").value,
+    }
 
-    let response = await api.post("/api/employee/add/", postData);
+    let response = await api.post("/api/employee/update/", postData);
     if (response.status === 200) {
-      alert("Employee Added Successfully");
+      alert("Employee Updated Successfully");
       window.location.reload();
     }
   };
@@ -53,11 +45,11 @@ function EditEmployee() {
     <Dialog
       fullScreen={fullScreen}
       maxWidth="lg"
-      open={props.addEmp}
+      open={props.open}
       onClose={handleClose}
     >
       <DialogTitle>
-        Add Employee
+        Edit Employee
         <IconButton
           aria-label="close"
           onClick={handleClose}
@@ -71,125 +63,108 @@ function EditEmployee() {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <form onSubmit={getData}>
-        <DialogContent>
-          <Grid
-            container
-            alignItems="flex-start"
-            spacing={2}
-            marginTop={2}
-            marginBottom={2}
-          >
-            <Grid item xs={4}>
-              <TextField
-                id="firstName"
-                name="firstName"
-                label="First Name"
-                multiline
-                maxRows={4}
-                variant="outlined"
-                color="secondary"
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <TextField
-                id="middleName"
-                label="Middle Name"
-                multiline
-                maxRows={4}
-                variant="outlined"
-                color="secondary"
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <TextField
-                id="lastName"
-                label="Last Name"
-                multiline
-                maxRows={4}
-                variant="outlined"
-                color="secondary"
-              />
-            </Grid>
+      <DialogContent>
+        <Grid
+          container
+          alignItems="flex-start"
+          spacing={2}
+          marginTop={2}
+          marginBottom={2}
+        >
+          <Grid item xs={12}>
+            <TextField
+              id="name"
+              name="name"
+              label="Name"
+              multiline
+              maxRows={4}
+              variant="outlined"
+              color="secondary"
+              defaultValue={props.data.name}
+            />
           </Grid>
-          <Grid
-            container
-            alignItems="flex-start"
-            spacing={2}
-            marginTop={2}
-            marginBottom={2}
-          >
-            <Grid item xs={6}>
-              <TextField
-                fullWidth={true}
-                id="email"
-                type="email"
-                label="Email"
-                multiline
-                maxRows={6}
-                variant="outlined"
-                color="secondary"
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                fullWidth={true}
-                id="contact"
-                label="Contact Number"
-                multiline
-                maxRows={4}
-                variant="outlined"
-                color="secondary"
-              />
-            </Grid>
+        </Grid>
+        <Grid
+          container
+          alignItems="flex-start"
+          spacing={2}
+          marginTop={2}
+          marginBottom={2}
+        >
+          <Grid item xs={6}>
+            <TextField
+              fullWidth={true}
+              id="email"
+              type="email"
+              label="Email"
+              multiline
+              maxRows={6}
+              variant="outlined"
+              color="secondary"
+              defaultValue={props.data.email}
+            />
           </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth={true}
+              id="contact"
+              label="Contact Number"
+              multiline
+              maxRows={4}
+              variant="outlined"
+              color="secondary"
+              defaultValue={props.data.contact}
+            />
+          </Grid>
+        </Grid>
 
-          <Grid
-            container
-            alignItems="flex-start"
-            spacing={2}
-            marginTop={2}
-            marginBottom={2}
-          >
-            <Grid item xs={12}>
-              <TextField
-                fullWidth={true}
-                id="address"
-                label="Address"
-                multiline
-                rows={2}
-                variant="outlined"
-                color="secondary"
-              />
-            </Grid>
+        <Grid
+          container
+          alignItems="flex-start"
+          spacing={2}
+          marginTop={2}
+          marginBottom={2}
+        >
+          <Grid item xs={12}>
+            <TextField
+              fullWidth={true}
+              id="address"
+              label="Address"
+              multiline
+              rows={2}
+              variant="outlined"
+              color="secondary"
+              defaultValue={props.data.address}
+            />
           </Grid>
+        </Grid>
 
-          <Grid
-            container
-            alignItems="flex-start"
-            spacing={2}
-            marginTop={2}
-            marginBottom={2}
-          >
-            <Grid item xs={12}>
-              <TextField
-                fullWidth={true}
-                id="salary"
-                label="Salary"
-                multiline
-                rows={2}
-                variant="outlined"
-                color="secondary"
-              />
-            </Grid>
+        <Grid
+          container
+          alignItems="flex-start"
+          spacing={2}
+          marginTop={2}
+          marginBottom={2}
+        >
+          <Grid item xs={12}>
+            <TextField
+              fullWidth={true}
+              id="salary"
+              label="Salary"
+              multiline
+              rows={2}
+              variant="outlined"
+              color="secondary"
+              defaultValue={props.data.salary}
+            />
           </Grid>
-        </DialogContent>
+        </Grid>
+      </DialogContent>
 
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Submit</Button>
-        </DialogActions>
-      </form>
+      <DialogActions>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={updateData} autoFocus>Submit</Button>
+      </DialogActions>
     </Dialog>
   );
 }

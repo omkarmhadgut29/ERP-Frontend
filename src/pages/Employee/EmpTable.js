@@ -9,7 +9,6 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 
-import Checkbox from "@mui/material/Checkbox";
 
 import useAxios from "../../authenticaton/useAxios";
 import Actions from "./Actions";
@@ -18,7 +17,6 @@ export default function StickyHeadTable() {
   const [columnHeaders, setColumnHeaders] = useState([]);
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [indexValue, setIndexValue] = useState(0);
   let count = 0;
 
   let api = useAxios();

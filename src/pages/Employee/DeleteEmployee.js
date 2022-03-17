@@ -5,22 +5,27 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import List from "@mui/material/List";
-import IconButton from "@mui/material/IconButton";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 
 import useAxios from "../../authenticaton/useAxios";
 import { Typography } from "@mui/material";
 
 function DeleteEmployee(props) {
   let data = props.data;
-  const items = ["name", "email", "address", "contact"];
+  let api = useAxios();
 
-  const handleClose = () => {
+  const handleClose =() => {
     props.setOpen(false);
   };
+
+  const handleDelete = async () => {
+    props.setOpen(false);
+
+    let response = await api.post("/api/employee/delete/", data);
+    if (response.status === 200) {
+      alert("Employee Deleted Successfully");
+      window.location.reload();
+    }
+  }
 
   return (
     <Dialog
@@ -47,11 +52,10 @@ function DeleteEmployee(props) {
             Address: {data.address} <br />
           </Typography>
         </DialogContentText>
-        {console.log(props.data)}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClose} autoFocus>
+        <Button onClick={handleDelete} autoFocus>
           Delete
         </Button>
       </DialogActions>

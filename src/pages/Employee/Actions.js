@@ -10,46 +10,33 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-
 import DeleteEmployee from "./DeleteEmployee";
+import EditEmployee from "./EditEmployee";
 
 const options = ["Edit Details", "Delete"];
 
 const Actions = (props) => {
-  const [open1, setOpen1] = React.useState(false);
+  const [deleteBox, setDeleteBox] = React.useState(false);
+  const [editBox, setEditBox] = React.useState(false);
 
-  const handleClickOpen1 = () => {
-    setOpen1(true);
+  const handleClickdeleteBox = () => {
+    setDeleteBox(true);
   };
 
-  const handleClose1 = () => {
-    setOpen1(false);
+  const handleClickEditBox = () => {
+    setEditBox(true);
   };
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
 
-  const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
-  };
 
   const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
     setOpen(false);
-    // handleClick();
-    // console.log(props.row);
     if (options[index] === "Edit Details") {
-      alert("Edit details");
+      handleClickEditBox();
     } else if (options[index] === "Delete") {
-      //   <DeleteEmployee />;
-      //   console.log("Actions");
-      handleClickOpen1();
+      handleClickdeleteBox();
     }
   };
 
@@ -102,8 +89,11 @@ const Actions = (props) => {
           </Grow>
         )}
       </Popper>
-      {open1 ? (
-        <DeleteEmployee open={open1} setOpen={setOpen1} data={props.data} />
+      {deleteBox ? (
+        <DeleteEmployee open={deleteBox} setOpen={setDeleteBox} data={props.data} />
+      ) : null}
+      {editBox ? (
+        <EditEmployee open={editBox} setOpen={setEditBox} data={props.data} />
       ) : null}
     </Box>
   );
