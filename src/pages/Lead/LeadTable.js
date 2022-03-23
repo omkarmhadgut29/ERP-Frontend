@@ -10,19 +10,26 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 
 import useAxios from "../../authenticaton/useAxios";
+import LeadActions from "./LeadActions";
 
 function LeadTable() {
   const [columnHeaders, setColumnHeaders] = useState([]);
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
+  let count = 0;
 
   let api = useAxios();
   let getEmployees = async () => {
     let response = await api.get("/lead/");
     if (response.status === 200) {
-      let column = Object.keys(response.data[0]);
-      column.splice(response.data.indexOf("image"), 1);
-      setColumnHeaders(column);
+      let column = [];
+      column.push("no.");
+      column = column.concat(Object.keys(response.data[0]));
+      column.push("action");
+      let newColumn = column.filter(function (value, index, arr) {
+        return value !== "id" && value !== "image";
+      });
+      setColumnHeaders(newColumn);
       setRows(response.data);
     }
     setLoading(false);
@@ -45,6 +52,10 @@ function LeadTable() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+  const selectedTableCell = (event, id, cell) => {
+    console.log(id, cell);
+    event.target.selected = true;
   };
 
   return (
@@ -83,13 +94,22 @@ function LeadTable() {
                     >
                       {columnHeaders.map((column) => {
                         let value;
-                        if (parseInt(row[column])) {
-                          value = parseInt(row[column]);
+                        if (column === "no.") {
+                          value = count + 1;
+                          count++;
+                        } else if (column === "action") {
+                          value = <LeadActions data={row} />;
                         } else {
-                          value = String(row[column]);
+                          value = row[column];
                         }
                         return (
-                          <TableCell key={column} align="right">
+                          <TableCell
+                            key={column}
+                            align="right"
+                            onDoubleClick={(event) => {
+                              selectedTableCell(event, row.id, column);
+                            }}
+                          >
                             <Typography
                               component={"div"}
                               sx={{
