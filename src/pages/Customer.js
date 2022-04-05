@@ -16,16 +16,18 @@ const Customer = () => {
         <Typography variant="h5" component={"div"}>
           Customer{" "}
         </Typography>
-        <Button
-          variant="contained"
-          color="success"
-          startIcon={<AddIcon />}
-          onClick={() => {
-            setAddCustomer(true);
-          }}
-        >
-          Add Customer
-        </Button>
+        <Box>
+          <Button
+            variant="contained"
+            color="success"
+            startIcon={<AddIcon />}
+            onClick={() => {
+              setAddCustomer(true);
+            }}
+          >
+            Add Customer
+          </Button>
+        </Box>
       </Box>
       <br />
       <CustomerTable />

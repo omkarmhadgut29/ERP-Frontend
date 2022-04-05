@@ -19,12 +19,15 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupIcon from "@mui/icons-material/Group";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import DataSaverOnIcon from "@mui/icons-material/DataSaverOn";
 
 import Appbar from "./Appbar";
 import GlobalVar from "../context/GlobalVar";
 import Dashboard from "../pages/Dashboard";
 import Customer from "../pages/Customer";
 import Employee from "../pages/Employee";
+import Employee_PredictionalData from "../pages/Employee_PredictionalData";
+import Customer_PredictionData from "../pages/Customer_PredictionData";
 import Leads from "../pages/Leads";
 
 const drawerWidth = 240;
@@ -85,7 +88,9 @@ export default function MiniDrawer({ classes }) {
   const object = {
     Dashboard: <DashboardIcon />,
     Employees: <PersonIcon />,
+    "Employee Statistics": <DataSaverOnIcon />,
     Customers: <GroupIcon />,
+    "Customer Churn": <DataSaverOnIcon />,
     Leads: <PeopleOutlineIcon />,
   };
 
@@ -95,8 +100,12 @@ export default function MiniDrawer({ classes }) {
 
   const listClick = (currentPage) => {
     setCurrentPage(currentPage);
-    if (currentPage === "Dashboard") {
+    if (currentPage === "dashboard") {
       history("/");
+    } else if (currentPage === "employee statistics") {
+      history("/employees/prediction");
+    } else if (currentPage === "customer churn") {
+      history("/customer/churn");
     } else {
       history(`/${currentPage}`);
     }
@@ -110,11 +119,7 @@ export default function MiniDrawer({ classes }) {
        */}
       <Appbar open={open} setOpen={setOpen} />
 
-      <Drawer
-        variant="permanent"
-        open={open}
-        // sx={{ bgcolor: "red !important" }}
-      >
+      <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
@@ -127,7 +132,11 @@ export default function MiniDrawer({ classes }) {
         <Divider />
         <List>
           {Object.entries(object).map(([key, value]) => (
-            <ListItem button key={key} onClick={() => listClick(key)}>
+            <ListItem
+              button
+              key={key}
+              onClick={() => listClick(key.toLowerCase())}
+            >
               <ListItemIcon>{value}</ListItemIcon>
               <ListItemText primary={key} />
             </ListItem>
@@ -140,9 +149,14 @@ export default function MiniDrawer({ classes }) {
 
         <Routes>
           <Route element={<Dashboard />} path="/" exact />
-          <Route element={<Customer />} path="/Customers" />
-          <Route element={<Employee />} path="/Employees" />
-          <Route element={<Leads />} path="/Leads" />
+          <Route element={<Customer />} path="/customers" />
+          <Route element={<Employee />} path="/employees" />
+          <Route
+            element={<Employee_PredictionalData />}
+            path="/employees/prediction"
+          />
+          <Route element={<Customer_PredictionData />} path="/customer/churn" />
+          <Route element={<Leads />} path="/leads" />
         </Routes>
       </Box>
     </Box>

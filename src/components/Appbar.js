@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import AuthContext from "../authenticaton/AuthContext";
 
 export default function Appbar(props) {
   const handleDrawerOpen = () => {
     props.setOpen(true);
   };
+
+  let { logoutUser } = useContext(AuthContext);
 
   const theme = useTheme();
 
@@ -33,7 +38,9 @@ export default function Appbar(props) {
 
   return (
     <AppBar position="fixed" open={props.open}>
-      <Toolbar>
+      <Toolbar
+        style={{ display: "flex !important", justifyContent: "space-between" }}
+      >
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -46,9 +53,18 @@ export default function Appbar(props) {
         >
           <MenuIcon />
         </IconButton>
+
         <Typography variant="h6" noWrap component={"div"}>
           Employee Relationship Management
         </Typography>
+        <Button
+          variant="contained"
+          color="success"
+          style={{ marginLeft: "10px" }}
+          onClick={logoutUser}
+        >
+          LogOut
+        </Button>
       </Toolbar>
     </AppBar>
   );

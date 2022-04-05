@@ -10,9 +10,8 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 
 import useAxios from "../../authenticaton/useAxios";
-import Actions from "./Actions";
 
-export default function StickyHeadTable() {
+export default function PredictionalDataTable() {
   const [columnHeaders, setColumnHeaders] = useState([]);
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,16 +19,9 @@ export default function StickyHeadTable() {
 
   let api = useAxios();
   let getEmployees = async () => {
-    let response = await api.get("/employees/");
+    let response = await api.get("/api/employee/prediction/");
     if (response.status === 200) {
-      let column = [];
-      column.push("no.");
-      column = column.concat(Object.keys(response.data[0]));
-      column.push("action");
-      let newColumn = column.filter(function (value, index, arr) {
-        return value !== "image";
-      });
-      setColumnHeaders(newColumn);
+      setColumnHeaders(Object.keys(response.data[0]));
       setRows(response.data);
     }
     setLoading(false);
@@ -54,11 +46,6 @@ export default function StickyHeadTable() {
     setPage(0);
   };
 
-  const selectedTableCell = (event, id, cell) => {
-    console.log(id, cell);
-    event.target.selected = true;
-  };
-
   return (
     <div>
       {loading ? (
@@ -72,8 +59,8 @@ export default function StickyHeadTable() {
           <br /> Please Add Data{" "}
         </Typography>
       ) : (
-        <Paper sx={{ width: "100%", overflow: "auto" }}>
-          <TableContainer sx={{ maxHeight: 510 }}>
+        <Paper sx={{ width: "165vh", overflow: "auto" }}>
+          <TableContainer sx={{ maxHeight: 510, minHeight: 510 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
@@ -102,24 +89,10 @@ export default function StickyHeadTable() {
                       sx={{ "&:hover": { background: "#f2ffff" } }}
                     >
                       {columnHeaders.map((column) => {
-                        let value;
-                        if (column === "no.") {
-                          value = count + 1;
-                          count++;
-                        } else if (column === "action") {
-                          value = <Actions data={row} />;
-                        } else {
-                          value = row[column];
-                        }
+                        let value = row[column];
 
                         return (
-                          <TableCell
-                            key={column}
-                            align="right"
-                            onDoubleClick={(event) => {
-                              selectedTableCell(event, row.id, column);
-                            }}
-                          >
+                          <TableCell key={column} align="right">
                             <Typography
                               component={"div"}
                               sx={{

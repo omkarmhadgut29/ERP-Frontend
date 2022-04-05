@@ -61,7 +61,15 @@ function LeadTable() {
   return (
     <div>
       {loading ? (
-        <span>loading</span>
+        <Typography
+          variant="h6"
+          color="red"
+          sx={{ marginLeft: 50, marginTop: 10 }}
+        >
+          {" "}
+          Data Not Available........
+          <br /> Please Add Data{" "}
+        </Typography>
       ) : (
         <Paper sx={{ width: "100%", overflow: "auto" }}>
           <TableContainer sx={{ maxHeight: 510 }}>

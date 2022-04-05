@@ -3,39 +3,41 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
+import DataSaverOnIcon from "@mui/icons-material/DataSaverOn";
 
-import EmpTable from "./Employee/EmpTable";
-import AddEmployee from "./Employee/AddEmployee";
+import PredictionalDataTable from "./Employee/PredictionalDataTable";
+import Add_PredictionalData from "./Employee/Add_PredictionalData";
 
-const Employee = () => {
+function Employee_PredictionalData() {
   const [addEmp, setAddEmp] = React.useState(false);
   return (
     <Box>
       <Box display="flex" justifyContent="space-between">
         <Typography variant="h5" component={"div"}>
-          Employee{" "}
+          Predictional Data{" "}
         </Typography>
         <Box>
           <Button
             variant="contained"
             color="success"
-            startIcon={<AddIcon />}
+            startIcon={<DataSaverOnIcon />}
             style={{ marginLeft: "10px" }}
             onClick={() => {
               setAddEmp(true);
             }}
           >
-            Add Employee
+            Add Predictional Data
           </Button>
         </Box>
       </Box>
 
       <br />
-      <EmpTable />
-      {addEmp ? <AddEmployee addEmp={addEmp} setAddEmp={setAddEmp} /> : null}
+      <PredictionalDataTable />
+      {addEmp ? (
+        <Add_PredictionalData addEmp={addEmp} setAddEmp={setAddEmp} />
+      ) : null}
     </Box>
   );
-};
+}
 
-export default Employee;
+export default Employee_PredictionalData;

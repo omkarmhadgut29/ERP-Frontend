@@ -27,7 +27,7 @@ export default function CustomerTable() {
       column = column.concat(Object.keys(response.data[0]));
       column.push("action");
       let newColumn = column.filter(function (value, index, arr) {
-        return value !== "id" && value !== "image";
+        return value !== "image";
       });
       setColumnHeaders(newColumn);
       setRows(response.data);
@@ -62,7 +62,15 @@ export default function CustomerTable() {
   return (
     <div>
       {loading ? (
-        <span>loading</span>
+        <Typography
+          variant="h6"
+          color="red"
+          sx={{ marginLeft: 50, marginTop: 10 }}
+        >
+          {" "}
+          Data Not Available........
+          <br /> Please Add Data{" "}
+        </Typography>
       ) : (
         <Paper sx={{ width: "100%", overflow: "auto" }}>
           <TableContainer sx={{ maxHeight: 510 }}>
